@@ -1,115 +1,111 @@
 package ru.netology.statistic;
 
 public class Radio {
-    private String name;
-    private int maxVolume = 10;
-    private int minVolume = 0;
-    private int currentVolume;
-    private int maxRadioStation = 9;
-    private int minRadioStation = 0;
-    private int currentRadioStation;
-    private boolean on;
+    private String radioName = "Конструктор";
+    private int station;
+    private short stationsQuantity = 10;
+    private int volume = 20;
 
-    public String getName() {
-        return name;
+
+    // конструкторы
+
+    public Radio() {
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getMaxVolume() {
-        return maxVolume;
-    }
-
-    public void setMaxVolume(int maxVolume) {
-        this.maxVolume = maxVolume;
-    }
-
-    public int getMinVolume() {
-        return minVolume;
-    }
-
-    public void setMinVolume(int minVolume) {
-        this.minVolume = minVolume;
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int currentVolume) {
-        if (currentVolume > maxVolume) {
+    public Radio(int volume) {
+        if (volume > 100) {
             return;
         }
-        if (currentVolume < minVolume) {
+        if (volume < 0) {
             return;
         }
-        this.currentVolume = currentVolume;
+        this.volume = volume;
     }
 
-    public int getMaxRadioStation() {
-        return maxRadioStation;
+    public Radio(short stationsQuantity) {
+        setStationsQuantity(stationsQuantity);
     }
 
-    public void setMaxRadioStation(int maxRadioStation) {
-        this.maxRadioStation = maxRadioStation;
+    public Radio(String radioName, int station) {
+        this.radioName = radioName;
+        setStation(station);
     }
 
-    public int getMinRadioStation() {
-        return minRadioStation;
-    }
 
-    public void setMinRadioStation(int minRadioStation) {
-        this.minRadioStation = minRadioStation;
-    }
+    // установка параметров
 
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
-    }
-
-    public void setCurrentRadioStation(int currentRadioStation) {
-        if (currentRadioStation > maxRadioStation) {
+    public void setStationsQuantity(short stationsQuantity) {
+        if (stationsQuantity > 120) {
             return;
         }
-        if (currentRadioStation < minRadioStation) {
+        if (stationsQuantity < 1) {
             return;
         }
-        this.currentRadioStation = currentRadioStation;
+        this.stationsQuantity = stationsQuantity;
     }
 
-    public boolean isOn() {
-        return on;
-    }
-
-    public void setOn(boolean on) {
-        this.on = on;
-    }
-
-
-    public void pressNextStation() {
-        if (currentRadioStation >= maxRadioStation) {
-            setCurrentRadioStation(minRadioStation);
-        } else {
-            setCurrentRadioStation(currentRadioStation + 1);
+    public void setStation(int station) {
+        if (station > stationsQuantity) {
+            return;
         }
-    }
-
-    public void pressPrevStation() {
-        if (currentRadioStation <= minRadioStation) {
-            setCurrentRadioStation(maxRadioStation);
-        } else {
-            setCurrentRadioStation(currentRadioStation - 1);
+        if (station < 0) {
+            return;
         }
+        this.station = station;
     }
 
-    public void pressPlusVolume() {
-
-        setCurrentVolume(currentVolume + 1);
+    public void setVolume(int volume) {
+        this.volume = volume;
     }
 
-    public void pressMinusVolume() {
 
-        setCurrentVolume(currentVolume - 1);
+    // Оперирование станциями
+
+    public void switchStationUp() {
+        if (station == stationsQuantity) {
+            setStation(0);
+            return;
+        }
+        setStation(++station);
+    }
+
+    public void switchStationDown() {
+        if (station == 0) {
+            setStation(stationsQuantity);
+            return;
+        }
+        setStation(--station);
+    }
+
+
+    // Регулировка громкости
+
+    public void increaseVolume() {
+        if (volume == 100) {
+            return;
+        }
+        setVolume(++volume);
+    }
+
+    public void decreaseVolume() {
+        if (volume == 0) {
+            return;
+        }
+        setVolume(--volume);
+    }
+
+
+    // Getters
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public int getStation() {
+        return station;
+    }
+
+    public short getStationsQuantity() {
+        return stationsQuantity;
     }
 }
